@@ -1,0 +1,4 @@
+singleton SysStatsService 1.0 SysStatsService.qml
+singleton BluetoothService 1.0 BluetoothService.qml
+singleton DockerService 1.0 DockerService.qml
+singleton TermService 1.0 TermService.qml

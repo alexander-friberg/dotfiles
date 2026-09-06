@@ -1,0 +1,4 @@
+singleton WeatherService 1.0 WeatherService.qml
+singleton PkgService 1.0 PkgService.qml
+singleton ControlsService 1.0 ControlsService.qml
+singleton PowerService 1.0 PowerService.qml
