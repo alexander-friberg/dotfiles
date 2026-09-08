@@ -1,7 +1,8 @@
 vim.pack.add {
   { src = 'https://github.com/scottmckendry/cyberdream.nvim' },
   { src = 'https://github.com/sainnhe/everforest' },
-  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" }
+  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+  { src = "https://github.com/ellisonleao/gruvbox.nvim"},
 }
 
 require('cyberdream').setup {
@@ -23,4 +24,10 @@ require("catppuccin").setup({
   no_italic = true,
   no_bold = true,
 })
-vim.cmd.colorscheme 'catppuccin-nvim'
+
+require("gruvbox").setup({
+  transparent_mode = true,
+  contrast = "hard",
+})
+vim.o.background = "light"
+vim.cmd.colorscheme 'gruvbox'

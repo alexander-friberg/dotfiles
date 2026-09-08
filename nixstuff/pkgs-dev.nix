@@ -4,15 +4,15 @@
 {
   environment.systemPackages = with pkgs; [
     neovim
-    python3
-    go
+    gh
     tree-sitter
+    python3
+    git
     gcc
-    bun
-    typescript
-    typescript-language-server
+    gnumake
     nodejs
+    docker
+    docker-compose
   ];
 
-  programs.zoxide.enable = true;
 }

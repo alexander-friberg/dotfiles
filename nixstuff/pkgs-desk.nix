@@ -1,5 +1,5 @@
 
-{ pkgs, ... }:
+{ pkgs, noctalia, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -8,5 +8,10 @@
     bibata-cursors
     brightnessctl
     hyprpaper
+    hyprpicker
+    hyprsunset
+    qt6.qtmultimedia
+    noctalia.packages.${pkgs.system}.default
   ];
+
 }

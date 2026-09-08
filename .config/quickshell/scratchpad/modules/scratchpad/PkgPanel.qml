@@ -2,9 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import "../../style"
 import "../../services"
-
-// [PKG] dockapp: total update count with a big icon, then a per-source
-// breakdown row — see scratchpad-pkg in scratchpad.yuck.
+// [PKG] dockapp: total package count (system + flatpak) with a big icon,
+// then a per-source breakdown row — see scratchpad-pkg in scratchpad.yuck.
 Rectangle {
     id: root
     implicitWidth: 178
@@ -13,12 +12,10 @@ Rectangle {
     border.color: Theme.border
     border.width: 1
     radius: 0
-
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: 6
         spacing: 4
-
         Text {
             text: "[PKG]"
             color: Theme.fg
@@ -26,11 +23,9 @@ Rectangle {
             font.pixelSize: 17
             font.bold: true
         }
-
         RowLayout {
             Layout.bottomMargin: 8
             spacing: 12
-
             Text {
                 text: ""
                 color: Theme.fg
@@ -45,28 +40,25 @@ Rectangle {
                 font.bold: true
             }
         }
-
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 1
             color: Theme.divider
         }
-
         Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
-
             PkgCell {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                label: "pacman"
-                value: PkgService.pacman
+                label: "system"
+                value: PkgService.system
             }
             PkgCell {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
-                label: "aur"
-                value: PkgService.aur
+                label: "gen"
+                value: PkgService.generation
             }
             PkgCell {
                 anchors.right: parent.right

@@ -2,44 +2,40 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-
-// Three independent pollers (pacman/aur/flatpak), each its own Process +
-// Timer, so one slow/failing source never blocks the others. Counts total
-// *installed* packages per source, not pending updates — pacman's own
-// foreign-package accounting (-Qn native vs -Qm foreign) distinguishes repo
-// packages from AUR/local ones without needing an AUR helper at all.
+// Two independent pollers (system closure + flatpak) plus a lightweight
+// generation read; NixOS has no pacman/AUR-style native-vs-foreign package
+// split, so the middle slot instead reports the current system generation
+// number as a proxy for "how long since the last rebuild" — the closest
+// NixOS-native equivalent to watching an update count creep up.
 Singleton {
     id: root
-
-    property int pacman: 0
-    property int aur: 0
+    property int system: 0
+    property int generation: 0
     property int flatpak: 0
-    readonly property int total: root.pacman + root.aur + root.flatpak
-
+    readonly property int total: root.system + root.flatpak
     Process {
-        id: pacmanProc
-        command: ["sh", "-c", "pacman -Qnq | wc -l"]
+        id: systemProc
+        command: ["sh", "-c", "nix-store -q --references /run/current-system/sw | wc -l"]
         stdout: StdioCollector {
-            id: pacmanCollector
+            id: systemCollector
             onStreamFinished: {
-                const n = parseInt(pacmanCollector.text.trim(), 10);
-                if (!isNaN(n)) root.pacman = n;
+                const n = parseInt(systemCollector.text.trim(), 10);
+                if (!isNaN(n)) root.system = n;
             }
         }
     }
-
     Process {
-        id: aurProc
-        command: ["sh", "-c", "pacman -Qmq | wc -l"]
+        id: generationProc
+        command: ["sh", "-c", "readlink /nix/var/nix/profiles/system"]
         stdout: StdioCollector {
-            id: aurCollector
+            id: generationCollector
             onStreamFinished: {
-                const n = parseInt(aurCollector.text.trim(), 10);
-                if (!isNaN(n)) root.aur = n;
+                // symlink target looks like "system-157-link"
+                const match = generationCollector.text.trim().match(/system-(\d+)-link/);
+                if (match) root.generation = parseInt(match[1], 10);
             }
         }
     }
-
     Process {
         id: flatpakProc
         command: ["sh", "-c", "flatpak list | wc -l"]
@@ -51,15 +47,14 @@ Singleton {
             }
         }
     }
-
     Timer {
         interval: 600000
         running: true
         repeat: true
         triggeredOnStart: true
         onTriggered: {
-            if (!pacmanProc.running) pacmanProc.running = true;
-            if (!aurProc.running) aurProc.running = true;
+            if (!systemProc.running) systemProc.running = true;
+            if (!generationProc.running) generationProc.running = true;
             if (!flatpakProc.running) flatpakProc.running = true;
         }
     }

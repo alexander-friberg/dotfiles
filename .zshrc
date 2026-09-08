@@ -108,7 +108,13 @@ alias du="dust"
 alias df="duf"
 alias cls="clear"
 alias emacs="emacs -nw"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dotfiles='/run/current-system/sw/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias spf="superfile"
+alias nhs="sudo nixos-rebuild switch --flake /etc/nixos#nixos"
+alias nht="sudo nixos-rebuild test --flake /etc/nixos#nixos"
+alias nhb="sudo nixos-rebuild build --flake /etc/nixos#nixos"
+alias nixup="cd /etc/nixos && nix flake update && cd -"    # update flake.lock (bumps pinned nixpkgs)
+alias nixgit="cd /etc/nixos && git add -A && git status"    # quick stage + check before committing
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(fzf --zsh)"

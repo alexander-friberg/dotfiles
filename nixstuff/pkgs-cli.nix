@@ -5,14 +5,18 @@
   environment.systemPackages = with pkgs; [
     kitty
     tmux
-    git
     fzf
+    fd
+    ripgrep
+    curl
     zoxide
     starship
     eza
     unzip
+    superfile
   ];
 
   programs.zsh.ohMyZsh.enable = true;
   programs.zoxide.enable = true;
+  programs.starship.enable = true;
 }

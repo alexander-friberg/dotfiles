@@ -29,7 +29,7 @@ PanelWindow {
     }
     Image {
         anchors.fill: parent
-        source: "../../assets/frames/SidebarFrame.png"
+        source: "../../assets/scrollbar.jpg"
         fillMode: Image.Stretch
         opacity: 1
         smooth: true

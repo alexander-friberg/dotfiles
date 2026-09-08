@@ -10,7 +10,7 @@ ColumnLayout {
     property real min: 0
     property real max: 100
     property color lineColor: Theme.fg
-    property string imgPath: "../../assets/frames/SysFrame.png"
+    property string imgPath: "../../assets/scroll.jpg"
 
     Layout.preferredWidth: 60
     Layout.preferredHeight: 40
@@ -26,12 +26,12 @@ ColumnLayout {
             anchors.fill: parent
             source: root.imgPath
             visible: root.imgPath !== ""
-            fillMode: Image.PreserveAspectCrop
+            fillMode: Image.Stretch
             smooth: true
             mipmap: true
             asynchronous: true
             z: -1
-                }
+            }
 
         ColumnLayout {
             anchors.fill: parent

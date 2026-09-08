@@ -13,7 +13,7 @@ Singleton {
     readonly property color tmpLine: "#CA7238"
     readonly property color swpLine: "#E2432D"
 
-    readonly property string fontFamily: "IosevkaTermSlab Nerd Font Mono"
+    readonly property string fontFamily: "JetBrainsMono Nerd Font Mono"
     readonly property int spacing: 4
 
     readonly property color btDim: "#99ffffff"

@@ -11,7 +11,7 @@ Singleton {
     readonly property color warning: "#f9e2af"
     readonly property color critical: "#f38ba8"
 
-    readonly property string fontFamily: "IosevkaTermSlab Nerd Font Mono"
+    readonly property string fontFamily: "JetBrainsMono Nerd Font"
     readonly property int fontSize: 15
     readonly property int spacing: 6
 }
